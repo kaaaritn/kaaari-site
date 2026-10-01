@@ -224,7 +224,7 @@ nav.main-nav .nav-sub-ico svg{width:100%; height:100%;}
   .hero-logo-bg img{width:max(135vw,92svh); max-width:none; flex-shrink:0;}
   .figure-wrap{--fig:min(72vw,42vh); position:relative; top:auto; right:auto; bottom:auto; width:100%; margin:0 auto; height:calc(var(--fig) + 24px); order:0;
     display:flex; align-items:center; justify-content:center;}
-  .hero-text{position:relative; order:1; padding:22px 24px 0; max-width:none; text-align:left;}
+  .hero-text{position:relative; z-index:11; order:1; padding:22px 24px 0; max-width:none; text-align:left;} /* z-index:11 = Profileの波(10)より上。SNSアイコンが波の手前に出る */
   .hero h1{white-space:normal; font-size:clamp(1.4rem,6vw,2rem); margin:0 0 20px;}
   .hero-cta{margin-top:16px; margin-bottom:8px;}
   .hero-band-bottom{display:none;}
@@ -343,6 +343,12 @@ section{padding:110px 24px;}
 .detail-btn:hover{box-shadow:0 0 26px 8px rgba(255,255,255,.75), 0 0 60px 16px rgba(255,255,255,.4); transform:translateY(-2px);}
 @media (max-width:800px){
   .profile-simple{grid-template-columns:1fr;}
+  /* スマホ表示:Profileの左右に余白をつくる(数字を大きくすると余白が広がります) */
+  .profile-flat .inner{padding-left:30px; padding-right:30px;}
+  /* 写真を少し小さく(80%、中央に配置。大きさは width の数字で調整) */
+  .profile-photo{width:80%; margin:0 auto;}
+  /* 文字を少し小さく */
+  .profile-copy .lead{font-size:1.05rem; line-height:2;}
   /* スマホ表示:水色の背景を下に広げて、About Meボタンの下のグローが切れないようにする(波は水色の背景の下端に付いているので一緒に下がります) */
   .profile-flat{padding-bottom:64px;}
 }
@@ -671,7 +677,7 @@ footer{border-top:1px solid var(--line); padding:60px 24px 40px; background:rgba
         <a data-nav="sns" role="link" tabindex="0">SNS</a>
       </div>
     </div>
-    <div class="footer-bottom">© 2026 かぁりーしょん. All rights reserved.</div>
+    <div class="footer-bottom">© 2026 かぁりーしょん.</div>
   </div>
 </footer>
 
@@ -717,26 +723,28 @@ const portfolioCategories = [
 
 const portfolioWorks = [
   // ロゴ(画像は削除済み。あとで image:"" の "" の中に、画像ファイル名 例) "images/logo1.png" を書くと表示されます)
-  {category:"logo", title:"ネームロゴ", image:"",   url:"", desc:""},
-  {category:"logo", title:"シンボルロゴ", image:"",   url:"", desc:""},
-  {category:"logo", title:"企画ロゴ", image:"",   url:"", desc:""},
-  {category:"logo", title:"企画ロゴ", image:"",   url:"", desc:""},
-  {category:"other", title:"マイクラスキン", image:"images/micraskin.png",   url:"", desc:""},
+  {category:"logo", title:"ネームロゴ", image:"images/name.png",   url:"", desc:"文字の中でサメのひれを再現しました"},
+  {category:"logo", title:"シンボルロゴ", image:"images/kaarisinborurogo.png",   url:"", desc:"個人モチーフを意識しました"},
+  {category:"logo", title:"企画ロゴ", image:"images/pure.png",   url:"", desc:"VALORANTプレミア企画"},
+  {category:"logo", title:"企画ロゴ", image:"images/iine.png",   url:"", desc:"Tiktok配信企画サムネ"},
+  {category:"other", title:"マイクラスキン", image:"images/micraskin.png",   url:"", desc:"左 ねろたや様、右 かぁりーしょん"},
   {category:"thumbnail", title:"企画サムネ", image:"images/hibiki.png",   url:"", desc:"紅夢ひびき様企画"},
-  {
-  category:"video",
-  title:"配信待機画面",
-  image:"images/taikigamensamune.png",
-  url:"https://youtu.be/c_3rMhggs0k",
-  desc:""
-},
+  {category:"video", title:"配信待機画面", image:"images/taikigamensamune.png", url:"https://youtu.be/c_3rMhggs0k", desc:"手書きアニメーション"},
+  {category:"tournament", title:"大会画像デザイン", image:"images/yosi.png", url:"https://x.com/kaaakunoko/status/2072621141592781246?s=20", desc:"Dchanボーナス杯 feat よし"},
+  {category:"tournament", title:"大会画像デザイン", image:"images/yosaku.png", url:"https://x.com/kaaakunoko/status/2081215898132832602?s=20", desc:"夜桜CUPβ"},
+  {category:"logo",       title:"大会ロゴ", image:"images/yosarogo.png",   url:"https://x.com/kaaakunoko/status/2090021308436476287?s=20", desc:"ひとこと説明"},
+  {category:"logo",       title:"チームロゴ", image:"images/SSS.png",   url:"", desc:"SSSレアかぁoC!"},
+  {category:"other",      title:"公式HP", image:"images/HPkari.png",  url:"", desc:"初めての自作HP"},
+  {category:"other",      title:"マイクラツール", image:"images/iimy.png",  url:"", desc:"TiktokLiveいいね×Minecraft"},
+  {category:"thumbnail",  title:"企画サムネ", image:"images/sorozen.png",  url:"", desc:"Twitch企画マインクラフト"},
+  
+];
   // 例(先頭の // を消して使ってください):
   // {category:"logo",       title:"作品タイトル", image:"images/logo1.png",   url:"", desc:"ひとこと説明"},
   // {category:"tournament", title:"作品タイトル", image:"images/taikai1.png", url:"", desc:""},
   // {category:"thumbnail",  title:"作品タイトル", image:"images/thumb1.png",  url:"https://www.youtube.com/watch?v=xxxx", desc:""},
   // {category:"video",      title:"作品タイトル", image:"images/video1.png",  url:"https://www.youtube.com/watch?v=xxxx", desc:""},
   // {category:"other",      title:"作品タイトル", image:"images/other1.png",  url:"", desc:""},
-];
 
 /* ==== VTuberページ:TikTokLive企画 / Twitch配信企画 ====
    Creatorページの portfolioWorks と同じ書き方です。画像を追加するには、下の vtuberWorks の中に1行コピーして書き換えるだけです。
@@ -754,6 +762,8 @@ const vtuberCategories = [
 ];
 
 const vtuberWorks = [
+  {category:"tiktoklive", title:"いいねで妨害ダイヤ集めサバイバル", image:"images/iimy.png", url:"", desc:"Tiktokライブのいいねで僕のマイクラを邪魔できるよ！"},
+  {category:"twitch",     title:"ソロで全進捗達成", image:"images/sorozen.png", url:"", desc:"マインクラフトの全進捗をソロで達成へ！"},
   // 例(先頭の // を消して使ってください):
   // {category:"tiktoklive", title:"画像タイトル", image:"images/tiktok1.png", url:"", desc:"ひとこと説明"},
   // {category:"twitch",     title:"画像タイトル", image:"images/twitch1.png", url:"", desc:"ひとこと説明"},
